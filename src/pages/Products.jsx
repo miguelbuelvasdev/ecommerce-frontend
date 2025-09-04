@@ -13,25 +13,28 @@ const Products = () => {
   const [viewMode, setViewMode] = useState('grid');
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
-  // Categorías disponibles
+  // Categorías disponibles (actualizadas según los productos reales)
   const categories = [
     { value: 'todas', label: 'Todas las categorías' },
-    { value: 'electronica', label: 'Electrónica' },
-    { value: 'ropa', label: 'Ropa' },
-    { value: 'hogar', label: 'Hogar' },
-    { value: 'deportes', label: 'Deportes' },
-    { value: 'libros', label: 'Libros' },
-    { value: 'juguetes', label: 'Juguetes' }
+    { value: 'Audio', label: 'Audio' },
+    { value: 'Accesorios de Carga', label: 'Accesorios de Carga' },
+    { value: 'Periféricos', label: 'Periféricos' },
+    { value: 'Monitores', label: 'Monitores' },
+    { value: 'Almacenamiento', label: 'Almacenamiento' },
+    { value: 'Wearables', label: 'Wearables' },
+    { value: 'Video', label: 'Video' },
+    { value: 'Muebles de Oficina', label: 'Muebles de Oficina' },
+    { value: 'Accesorios', label: 'Accesorios' }
   ];
 
-  // Rangos de precio
+  // Rangos de precio en pesos colombianos
   const priceRanges = [
     { value: 'todos', label: 'Todos los precios' },
-    { value: '0-25', label: '€0 - €25' },
-    { value: '25-50', label: '€25 - €50' },
-    { value: '50-100', label: '€50 - €100' },
-    { value: '100-200', label: '€100 - €200' },
-    { value: '200+', label: 'Más de €200' }
+    { value: '0-50000', label: '$0 - $50,000 COP' },
+    { value: '50000-100000', label: '$50,000 - $100,000 COP' },
+    { value: '100000-200000', label: '$100,000 - $200,000 COP' },
+    { value: '200000-300000', label: '$200,000 - $300,000 COP' },
+    { value: '300000+', label: 'Más de $300,000 COP' }
   ];
 
   // Opciones de ordenamiento
@@ -43,87 +46,292 @@ const Products = () => {
     { value: 'newest', label: 'Más Recientes' }
   ];
 
-  // Datos de ejemplo de productos (en producción vendrían de una API)
+  // Datos reales de productos con información del productsDatabase
   const allProducts = [
     {
       id: 1,
-      name: "Smartphone Samsung Galaxy S23",
-      price: 899.99,
-      category: "electronica",
-      image: "https://placehold.co/400x400",
-      discount: 15,
+      name: "Auriculares inalámbricos Bluetooth",
+      price: 89900,
+      category: "Audio",
+      image: "../src/assets/audifonos.webp",
+      discount: 10,
       isNew: true,
-      createdAt: new Date('2024-01-15')
+      createdAt: new Date('2024-01-20'),
+      description: "Experimenta la libertad del sonido sin cables con estos auriculares. Conectividad Bluetooth 5.0, estuche de carga portátil y un diseño ergonómico para un ajuste perfecto.",
+      brand: "AudioFlow",
+      rating: 4.8,
+      reviews: 125,
+      stock: 45
     },
     {
       id: 2,
-      name: "Camiseta Deportiva Nike",
-      price: 39.99,
-      category: "ropa",
-      image: "https://placehold.co/400x400",
+      name: "Power bank de alta capacidad",
+      price: 45900,
+      category: "Accesorios de Carga",
+      image: "../src/assets/cargador.webp",
       discount: 0,
       isNew: false,
-      createdAt: new Date('2024-01-10')
+      createdAt: new Date('2024-01-15'),
+      description: "Mantén tus dispositivos siempre cargados con este power bank de alta capacidad. Su diseño compacto y ligero lo hace ideal para viajes, y su pantalla LED te informa del estado de la batería.",
+      brand: "Ciaoqiek",
+      rating: 4.6,
+      reviews: 320,
+      stock: 70
     },
     {
       id: 3,
-      name: "Lámpara LED Inteligente",
-      price: 59.99,
-      category: "hogar",
-      image: "https://placehold.co/400x400",
-      discount: 20,
-      isNew: false,
-      createdAt: new Date('2024-01-08')
+      name: "Cargador inalámbrico rápido",
+      price: 32900,
+      category: "Accesorios de Carga",
+      image: "../src/assets/cargador-inalambrico.webp",
+      discount: 15,
+      isNew: true,
+      createdAt: new Date('2024-01-18'),
+      description: "Carga tus dispositivos de forma rápida y sin cables. Este cargador inalámbrico es compatible con la mayoría de los smartphones y ofrece una carga eficiente y segura.",
+      brand: "ChargeX",
+      rating: 4.4,
+      reviews: 189,
+      stock: 55
     },
     {
       id: 4,
-      name: "Auriculares Sony WH-1000XM5",
-      price: 349.99,
-      category: "electronica",
-      image: "https://placehold.co/400x400",
-      discount: 10,
-      isNew: true,
-      createdAt: new Date('2024-01-20')
+      name: "Cable USB-C multipuerto",
+      price: 25900,
+      category: "Accesorios de Carga",
+      image: "../src/assets/conector.webp",
+      discount: 5,
+      isNew: false,
+      createdAt: new Date('2024-01-10'),
+      description: "Un solo cable para todas tus necesidades. Este cable multipuerto con conector USB-C te permite conectar múltiples dispositivos y pantallas a tu laptop o tablet.",
+      brand: "Wi-BPC",
+      rating: 4.7,
+      reviews: 95,
+      stock: 110
     },
     {
       id: 5,
-      name: "Zapatillas Running Adidas",
-      price: 89.99,
-      category: "deportes",
-      image: "https://placehold.co/400x400",
-      discount: 25,
-      isNew: false,
-      createdAt: new Date('2024-01-05')
+      name: "Teclado mecánico gamer",
+      price: 129900,
+      category: "Periféricos",
+      image: "../src/assets/teclado.webp",
+      discount: 20,
+      isNew: true,
+      createdAt: new Date('2024-01-22'),
+      description: "Domina el juego con este teclado mecánico diseñado para gamers. Con switches de alta respuesta, retroiluminación RGB personalizable y un diseño robusto, te ofrece la ventaja que necesitas.",
+      brand: "GamingGear",
+      rating: 4.9,
+      reviews: 560,
+      stock: 30
     },
     {
       id: 6,
-      name: "Novela Best Seller 2024",
-      price: 19.99,
-      category: "libros",
-      image: "https://placehold.co/400x400",
-      discount: 0,
+      name: "Mouse ergonómico inalámbrico",
+      price: 65900,
+      category: "Periféricos",
+      image: "../src/assets/mouse.webp",
+      discount: 10,
       isNew: true,
-      createdAt: new Date('2024-01-18')
+      createdAt: new Date('2024-01-19'),
+      description: "Reduce la fatiga de la mano y aumenta tu productividad con este mouse ergonómico inalámbrico. Su diseño contorneado se adapta perfectamente a la palma de la mano.",
+      brand: "Sngus",
+      rating: 4.7,
+      reviews: 210,
+      stock: 40
     },
     {
       id: 7,
-      name: "Set LEGO Architecture",
-      price: 149.99,
-      category: "juguetes",
-      image: "https://placehold.co/400x400",
+      name: "Soporte ajustable para laptop",
+      price: 38500,
+      category: "Accesorios",
+      image: "../src/assets/base-portatil.webp",
       discount: 0,
       isNew: false,
-      createdAt: new Date('2024-01-12')
+      createdAt: new Date('2024-01-08'),
+      description: "Mejora tu postura y la ventilación de tu laptop con este soporte ajustable. Fabricado en aluminio, es resistente y ligero, ideal para trabajar o estudiar cómodamente.",
+      brand: "ErgoRise",
+      rating: 4.5,
+      reviews: 150,
+      stock: 85
     },
     {
       id: 8,
-      name: "Tablet iPad Air",
-      price: 649.99,
-      category: "electronica",
-      image: "https://placehold.co/400x400",
+      name: "Webcam Full HD",
+      price: 79900,
+      category: "Periféricos",
+      image: "../src/assets/camara.webp",
+      discount: 10,
+      isNew: true,
+      createdAt: new Date('2024-01-17'),
+      description: "Transmite video en alta definición con esta webcam Full HD. Ideal para videollamadas, streaming y creación de contenido. Con enfoque automático y micrófono incorporado.",
+      brand: "WebCam Pro",
+      rating: 4.3,
+      reviews: 90,
+      stock: 60
+    },
+    {
+      id: 9,
+      name: "Monitor curvo ultrawide",
+      price: 450000,
+      category: "Monitores",
+      image: "../src/assets/monitor.webp",
+      discount: 15,
+      isNew: true,
+      createdAt: new Date('2024-01-25'),
+      description: "Sumérgete en tus juegos y películas con este monitor curvo ultrawide. Su pantalla panorámica te ofrece una experiencia visual inmersiva y un mayor espacio de trabajo para multitareas.",
+      brand: "DisplayMax",
+      rating: 4.8,
+      reviews: 115,
+      stock: 20
+    },
+    {
+      id: 10,
+      name: "SSD externo portátil",
+      price: 95000,
+      category: "Almacenamiento",
+      image: "../src/assets/ssd-externo.webp",
+      discount: 0,
+      isNew: false,
+      createdAt: new Date('2024-01-12'),
+      description: "Lleva tus archivos a donde vayas con este SSD portátil. Ofrece velocidades de transferencia ultrarrápidas en un diseño compacto y resistente a golpes y vibraciones.",
+      brand: "StorageX",
+      rating: 4.7,
+      reviews: 178,
+      stock: 50
+    },
+    {
+      id: 11,
+      name: "Smartwatch deportivo",
+      price: 150000,
+      category: "Wearables",
+      image: "../src/assets/reloj.webp",
+      discount: 10,
+      isNew: true,
+      createdAt: new Date('2024-01-21'),
+      description: "Monitorea tu salud y actividad física con este smartwatch deportivo. Cuenta con múltiples modos de deporte, medición de frecuencia cardíaca y oxígeno en sangre.",
+      brand: "FitTech",
+      rating: 4.6,
+      reviews: 250,
+      stock: 35
+    },
+    {
+      id: 12,
+      name: "Pulsera fitness tracker",
+      price: 50000,
+      category: "Wearables",
+      image: "../src/assets/reloj2.webp",
       discount: 5,
       isNew: false,
-      createdAt: new Date('2024-01-03')
+      createdAt: new Date('2024-01-14'),
+      description: "Una pulsera elegante y funcional para seguir tu actividad diaria. Cuenta pasos, monitorea tu sueño y recibe notificaciones de tu teléfono, todo en un diseño ligero y discreto.",
+      brand: "TrackFit",
+      rating: 4.5,
+      reviews: 180,
+      stock: 90
+    },
+    {
+      id: 13,
+      name: "Altavoz Bluetooth portátil",
+      price: 75000,
+      category: "Audio",
+      image: "../src/assets/parlante.webp",
+      discount: 10,
+      isNew: true,
+      createdAt: new Date('2024-01-23'),
+      description: "Lleva la fiesta a cualquier lugar con este potente altavoz Bluetooth portátil. Ofrece un sonido nítido y graves profundos, con una batería que dura todo el día.",
+      brand: "AudioFlow",
+      rating: 4.7,
+      reviews: 310,
+      stock: 65
+    },
+    {
+      id: 14,
+      name: "Barra de sonido compacta",
+      price: 190000,
+      category: "Audio",
+      image: "../src/assets/parlante2.webp",
+      discount: 15,
+      isNew: false,
+      createdAt: new Date('2024-01-11'),
+      description: "Mejora la calidad de sonido de tu televisor sin ocupar mucho espacio. Esta barra de sonido compacta ofrece un sonido cinematográfico y se conecta fácilmente a través de Bluetooth o HDMI.",
+      brand: "Soundrens",
+      rating: 4.6,
+      reviews: 140,
+      stock: 30
+    },
+    {
+      id: 15,
+      name: "Proyector de bolsillo portátil",
+      price: 180000,
+      category: "Video",
+      image: "../src/assets/proyector.webp",
+      discount: 20,
+      isNew: true,
+      createdAt: new Date('2024-01-24'),
+      description: "Convierte cualquier pared en una pantalla de cine con este proyector de bolsillo. Perfecto para presentaciones, noches de cine al aire libre o para llevar a casa de amigos.",
+      brand: "VividView",
+      rating: 4.4,
+      reviews: 85,
+      stock: 25
+    },
+    {
+      id: 16,
+      name: "Micrófono USB para streaming",
+      price: 85000,
+      category: "Audio",
+      image: "../src/assets/microfono.webp",
+      discount: 10,
+      isNew: false,
+      createdAt: new Date('2024-01-13'),
+      description: "Graba tu voz con calidad profesional para streaming, podcasts o gaming. Este micrófono USB es fácil de usar, con un patrón de captación cardioide y un soporte de escritorio robusto.",
+      brand: "AudioTech",
+      rating: 4.8,
+      reviews: 160,
+      stock: 40
+    },
+    {
+      id: 17,
+      name: "Silla gamer ergonómica",
+      price: 280000,
+      category: "Muebles de Oficina",
+      image: "../src/assets/silla.webp",
+      discount: 20,
+      isNew: true,
+      createdAt: new Date('2024-01-26'),
+      description: "Juega o trabaja durante horas con la máxima comodidad. Esta silla gamer ergonómica ofrece soporte lumbar y cervical ajustable, reposabrazos 4D y un diseño reclinable.",
+      brand: "GamingGear",
+      rating: 4.7,
+      reviews: 230,
+      stock: 15
+    },
+    {
+      id: 18,
+      name: "Hub USB-C con múltiples puertos",
+      price: 55000,
+      category: "Accesorios",
+      image: "../src/assets/hdmi.webp",
+      discount: 5,
+      isNew: false,
+      createdAt: new Date('2024-01-09'),
+      description: "Expande la conectividad de tu laptop con este hub USB-C compacto. Convierte un solo puerto USB-C en múltiples puertos para transferir datos, conectar pantallas y más.",
+      brand: "TechHub",
+      rating: 4.6,
+      reviews: 110,
+      stock: 75
+    },
+    {
+      id: 19,
+      name: "Disco duro NAS doméstico",
+      price: 320000,
+      category: "Almacenamiento",
+      image: "../src/assets/DISCO-DOMESTICO.webp",
+      discount: 10,
+      isNew: true,
+      createdAt: new Date('2024-01-27'),
+      description: "Centraliza y protege tus datos en la nube personal de tu hogar. Este NAS te permite acceder a tus archivos desde cualquier dispositivo, crear copias de seguridad automáticas y compartir contenido multimedia fácilmente.",
+      brand: "StoreHO",
+      rating: 4.5,
+      reviews: 90,
+      stock: 20
     }
   ];
 
@@ -157,8 +365,8 @@ const Products = () => {
           ? product.price * (1 - product.discount / 100)
           : product.price;
         
-        if (selectedPriceRange === '200+') {
-          return finalPrice >= 200;
+        if (selectedPriceRange === '300000+') {
+          return finalPrice >= 300000;
         }
         return finalPrice >= min && finalPrice <= max;
       });

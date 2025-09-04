@@ -26,7 +26,7 @@ const Hero = () => {
           {/* Imagen del Hero */}
           <div className="hidden md:block">
             <img
-              src="https://placehold.co/600x400"
+              src="../src/assets/collage.webp"
               alt="Collage de productos electrónicos modernos incluyendo smartphones, laptops y auriculares sobre fondo minimalista"
               className="rounded-lg shadow-2xl"
             />

@@ -8,19 +8,19 @@ const Contact = () => {
     {
       icon: <FiMail className="w-6 h-6" />,
       title: "Correo Electrónico",
-      description: "contacto@mitienda.com",
-      link: "mailto:contacto@mitienda.com"
+      description: "contacto@miguelbuelvasdev.com",
+      link: "mailto:contacto@miguelbuelvasdev.com"
     },
     {
       icon: <FiPhone className="w-6 h-6" />,
       title: "Teléfono",
-      description: "+1 234 567 890",
-      link: "tel:+1234567890"
+      description: "+57 300 901 6173",
+      link: "+573009016173"
     },
     {
       icon: <FiMapPin className="w-6 h-6" />,
       title: "Dirección",
-      description: "Calle Principal 123, Ciudad, País",
+      description: "El Carmen de Bolívar, Colombia",
       link: "https://maps.google.com"
     }
   ];

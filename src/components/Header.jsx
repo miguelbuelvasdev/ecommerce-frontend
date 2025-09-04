@@ -26,7 +26,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors duration-300">
-              <span className="text-blue-600">Mi</span>Tienda
+              <span className="text-blue-600">Tech</span>Tronic
             </Link>
           </div>
 
